@@ -1,0 +1,40 @@
+CREATE TABLE Admin(
+Id INT PRIMARY KEY AUTO_INCREMENT ,
+UserName VARCHAR(50),
+Password VARCHAR(50),
+Root BOOLEAN
+);
+
+CREATE TABLE Card (
+Id INT PRIMARY KEY AUTO_INCREMENT,
+Name VARCHAR(50),
+FilePath VARCHAR(300),
+AdminId INT,
+FOREIGN KEY (AdminId) REFERENCES Admin(Id)
+);
+
+CREATE TABLE CardFields (
+CardId INT,
+Name VARCHAR(50),
+FOREIGN KEY (CardId) REFERENCES Card(Id)
+);
+
+CREATE TABLE CreationRecord (
+CardId INT,
+CardName VARCHAR(50),
+CreateDate DATETIME
+);
+
+CREATE TABLE CreatedCards (
+Id INT PRIMARY KEY AUTO_INCREMENT,
+CardId INT,
+Email VARCHAR(100),
+CreateTime DATETIME,
+FOREIGN KEY (CardId) REFERENCES Card(Id)
+);
+CREATE TABLE CardValue (
+IdCreatedCard INT,
+Field VARCHAR(50),
+Value VARCHAR(1000),
+FOREIGN KEY (IdCreatedCard) REFERENCES CreatedCards(Id)
+);
